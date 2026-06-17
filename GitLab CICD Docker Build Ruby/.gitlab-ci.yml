@@ -1,0 +1,33 @@
+image: docker:24
+
+services:
+  - docker:24-dind
+
+variables:
+  IMAGE_NAME: sample-ruby-build
+
+stages:
+  - build
+
+build_image:
+  stage: build
+  script:
+    # ============= InvisiRisk Setup (start of every job's script) =============
+    # The docker:24 image is Alpine-based; bash and curl are needed for the bootstrap.
+    - apk add --no-cache bash curl
+    - |
+      curl -sSf -H "x-api-key: ${IR_TOKEN}" "https://app.invisirisk.com/ingestionapi/v1/pse/bootstrap" | bash
+      . /tmp/ir_envs
+    # ============= InvisiRisk Setup End =============
+
+    - |
+      DOCKER_BUILDKIT=1 docker build \
+        -t $IMAGE_NAME:latest \
+        --build-arg BUILDKIT_SYNTAX=public.ecr.aws/w3c0c0n7/invisirisk/baf-buildkit:latest \
+        --secret id=pse-ca,src=/etc/ssl/certs/pse.pem \
+        --build-arg PSE_PROXY=http://${PSE_PROXY_IP}:3128 \
+        .
+
+    # ============= InvisiRisk Cleanup (end of every job's script) =============
+    - pse-data-collector cleanup
+    # ============= InvisiRisk Cleanup End =============

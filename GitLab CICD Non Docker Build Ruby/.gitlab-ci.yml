@@ -1,0 +1,21 @@
+image: ruby:3.4.1
+
+stages:
+  - build
+
+install_dependencies:
+  stage: build
+  script:
+    # ============= InvisiRisk Setup (start of every job's script) =============
+    - |
+      curl -sSf -H "x-api-key: ${IR_TOKEN}" "https://app.invisirisk.com/ingestionapi/v1/pse/bootstrap" | bash
+      . /tmp/ir_envs
+    # ============= InvisiRisk Setup End =============
+
+    - gem install bundler
+    - bundle install
+    - gem list
+
+    # ============= InvisiRisk Cleanup (end of every job's script) =============
+    - pse-data-collector cleanup
+    # ============= InvisiRisk Cleanup End =============
