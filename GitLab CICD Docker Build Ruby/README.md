@@ -127,7 +127,7 @@ DOCKER_BUILDKIT=1 docker build \
 |---|---|
 | `DOCKER_BUILDKIT=1` | Enables BuildKit mode, required for the custom frontend and secrets support. Add this as a prefix if not already set. |
 | `--build-arg BUILDKIT_SYNTAX=public.ecr.aws/w3c0c0n7/invisirisk/baf-buildkit:latest` | Swaps in the InvisiRisk custom BuildKit frontend, which transparently routes build-time traffic through the BAF. |
-| `--secret id=pse-ca,src=/etc/ssl/certs/pse.pem` | Passes the PSE CA certificate into the build without embedding it in the final image. |
+| `--secret id=pse-ca,src=${PSE_CA_CERT_PATH} | Passes the PSE CA certificate into the build without embedding it in the final image. |
 | `--build-arg PSE_PROXY=http://${PSE_PROXY_IP}:3128` | Tells the frontend which proxy endpoint to use. `PSE_PROXY_IP` is set by the bootstrap script and sourced from `/tmp/ir_envs`. |
 
 ---
