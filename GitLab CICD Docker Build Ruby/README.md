@@ -38,7 +38,7 @@ Add the BAF setup at the **start** of every job's `script` and the cleanup at th
   DOCKER_BUILDKIT=1 docker build \
     -t $IMAGE_NAME:latest \
     --build-arg BUILDKIT_SYNTAX=public.ecr.aws/w3c0c0n7/invisirisk/baf-buildkit:latest \
-    --secret id=pse-ca,src=/etc/ssl/certs/pse.pem \
+    --secret id=pse-ca,src=${PSE_CA_CERT_PATH} \
     --build-arg PSE_PROXY=http://${PSE_PROXY_IP}:3128 \
     .
 ```
@@ -77,7 +77,7 @@ build_image:
       DOCKER_BUILDKIT=1 docker build \
         -t $IMAGE_NAME:latest \
         --build-arg BUILDKIT_SYNTAX=public.ecr.aws/w3c0c0n7/invisirisk/baf-buildkit:latest \
-        --secret id=pse-ca,src=/etc/ssl/certs/pse.pem \
+        --secret id=pse-ca,src=${PSE_CA_CERT_PATH} \
         --build-arg PSE_PROXY=http://${PSE_PROXY_IP}:3128 \
         .
 
@@ -118,7 +118,7 @@ docker build -t $IMAGE_NAME:$TAG .
 ```sh
 DOCKER_BUILDKIT=1 docker build \
   --build-arg BUILDKIT_SYNTAX=public.ecr.aws/w3c0c0n7/invisirisk/baf-buildkit:latest \
-  --secret id=pse-ca,src=/etc/ssl/certs/pse.pem \
+  --secret id=pse-ca,src=${PSE_CA_CERT_PATH} \
   --build-arg PSE_PROXY=http://${PSE_PROXY_IP}:3128 \
   -t $IMAGE_NAME:$TAG .
 ```
