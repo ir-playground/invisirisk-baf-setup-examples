@@ -1,0 +1,10 @@
+docker:build:python:
+  extends: .mise-task
+  variables:
+    MISE_TASK: ir_wrapped
+    CI_REGISTRY_IMAGE: python-api
+    CI_COMMIT_SHA: latest
+    PROJECT_PATH: ./python-api
+  stage: python
+  rules:
+    - when: always

@@ -1,0 +1,10 @@
+docker:build:node:
+  extends: .mise-task
+  variables:
+    MISE_TASK: ir_wrapped
+    CI_REGISTRY_IMAGE: node-api
+    CI_COMMIT_SHA: latest
+    PROJECT_PATH: ./node-api
+  stage: npm
+  rules:
+    - when: always

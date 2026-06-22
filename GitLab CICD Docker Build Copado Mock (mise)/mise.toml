@@ -1,10 +1,7 @@
-[tools]
-node = "20"
-
 [tasks."pse:setup"]
 hide = true
 run = '''
-curl -fsSL -H "x-api-key: ${IR_TOKEN}" "${IR_URL:-https://app.invisirisk.com}/ingestionapi/v1/pse/bootstrap?mode=native&runner=${RUNNER:-any}" | bash
+curl -fsSL -H "x-api-key: ${IR_TOKEN}" "${IR_URL}/ingestionapi/v1/pse/bootstrap?mode=native&runner=${RUNNER:-any}" | bash
 '''
 
 [tasks."pse:cleanup"]
@@ -21,7 +18,7 @@ DOCKER_BUILDKIT=1 docker build \
   --build-arg BUILDKIT_SYNTAX=public.ecr.aws/w3c0c0n7/invisirisk/baf-buildkit:latest \
   --secret id=pse-ca,src="${PSE_CA_CERT_PATH}" \
   --build-arg PSE_PROXY="${PSE_PROXY:-http://${PSE_PROXY_IP}:3128}" \
-  -t "${IMAGE_NAME}:latest" .
+  -t "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}" "${PROJECT_PATH}"
 '''
 
 [tasks."ir_wrapped"]

@@ -1,0 +1,20 @@
+variables:
+  CI_RUNNER_IMAGE: "nikolaik/python-nodejs:python3.12-nodejs22"
+  DOCKER_IMAGE: "docker:27"
+  DOCKER_TLS_CERTDIR: "/certs"
+  MISE_PYTHON_COMPILE: "false"
+
+default:
+  # Use custom runner image
+  image: $CI_RUNNER_IMAGE
+
+stages:
+  - python 
+  - npm
+ 
+
+
+include:
+  - local: .gitlab/workflows/mise-task.yml
+  - local: .gitlab/workflows/npm.yml
+  - local: .gitlab/workflows/python.yml
