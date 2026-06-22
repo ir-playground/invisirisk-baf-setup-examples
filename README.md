@@ -2,4 +2,4 @@
 
 Recommended GitLab + `mise` example:
 
-- [GitLab CICD Docker Build Copado Mock (mise)](<./GitLab CICD Docker Build Copado Mock (mise)/README.md>)
+- [GitLab CICD Docker Build Project (mise)](<./GitLab CICD Docker Build Project (mise)/README.md>)

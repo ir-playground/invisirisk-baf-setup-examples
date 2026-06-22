@@ -1,6 +1,6 @@
-# Copado Mock Project - InvisiRisk BAF Example Setup (GitLab CI/CD, Docker Build, mise)
+# Docker Project - InvisiRisk BAF Example Setup (GitLab CI/CD, Docker Build, mise)
 
-This guide explains how to integrate the InvisiRisk BAF into the `copado-mock` GitLab CI/CD Docker build using `mise`. This project builds two Docker services:
+This guide explains how to integrate the InvisiRisk BAF into a GitLab CI/CD Docker build using `mise`. This project builds two Docker services:
 
 - `python-api` from `./python-api`
 - `node-api` from `./node-api`
@@ -10,7 +10,7 @@ The GitLab jobs include local workflow files and call one wrapper task: `mise ru
 ## Project Structure
 
 ```text
-copado-mock/
+docker-project/
 ├── .gitlab-ci.yml
 ├── .gitlab/
 │   └── workflows/
