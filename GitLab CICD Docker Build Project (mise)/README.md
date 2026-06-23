@@ -5,7 +5,7 @@ This guide explains how to integrate the InvisiRisk BAF into a GitLab CI/CD Dock
 - `python-api` from `./python-api`
 - `node-api` from `./node-api`
 
-The GitLab jobs include local workflow files and call one wrapper task: `mise run ir_wrapped`. The wrapper task handles BAF setup, the Docker build, and cleanup.
+The GitLab jobs include local workflow files and call `mise run ir_wrapped` for each Docker build. The wrapper task keeps BAF setup, the Docker build, and cleanup in one place.
 
 ## Project Structure
 
@@ -78,7 +78,7 @@ depends_post = ["pse:cleanup"]
 run = "mise run docker:build"
 ```
 
-`ir_wrapped` is the only task each Docker build job needs to call.
+Each Docker build job calls `ir_wrapped`, which runs setup first, then the build, then cleanup as a post task.
 
 ---
 
